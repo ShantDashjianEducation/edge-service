@@ -25,9 +25,15 @@ import reactor.core.publisher.Mono;
 public class SecurityConfig {
 
 	@Bean
+	ServerOAuth2AuthorizedClientRepository authorizedClientRepository() {
+		return new WebSessionServerOAuth2AuthorizedClientRepository();
+	}
+
+	@Bean
 	SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http, ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		return http
 			.authorizeExchange(exchange -> exchange
+				.pathMatchers("/actuator/**").permitAll()
 				.pathMatchers("/", "/*.css", "/*.js", "/favicon.ico").permitAll()
 				.pathMatchers(HttpMethod.GET, "/books/**").permitAll()
 				.anyExchange().authenticated()
@@ -60,8 +66,4 @@ public class SecurityConfig {
 		};
 	}
 
-	@Bean
-	ServerOAuth2AuthorizedClientRepository authorizedClientRepository() {
-		return new WebSessionServerOAuth2AuthorizedClientRepository();
-	}
 }
