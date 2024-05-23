@@ -35,6 +35,8 @@ spec:
               value: http://order-service
             - name: SPA_URL
               value: http://bookshop-ui
+            - name: SPRING_DATA_REDIS_HOST
+              value: bookshop-redis
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
