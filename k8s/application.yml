@@ -1,6 +1,7 @@
 spring:
-  redis:
-    host: bookshop-redis
+  data:
+    redis:
+      host: bookshop-redis
   security:
     oauth2:
       client:
